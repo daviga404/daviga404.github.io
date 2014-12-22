@@ -1,0 +1,5 @@
+timezone: London/Europe
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
