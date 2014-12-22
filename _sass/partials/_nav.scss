@@ -5,9 +5,9 @@ header.nav {
     position: absolute;
     top: 0; left: 0; right: 0;
 
-    height: 80px;
-    line-height: 40px;
-    padding: 20px;
+    height: $headerHeight;
+    line-height: $headerHeight - $headerPadding * 2;
+    padding: $headerPadding;
 
     //!!!
     background: #333;
@@ -16,13 +16,23 @@ header.nav {
 
 header.nav .logo img {
 
+    @include box-sizing(content-box);
+
     width: auto;
-    height: 40px;
+    height: $logoHeight;
+    padding: (($headerHeight - $headerPadding * 2 - $logoHeight) / 2); // Remaining space in header / 2
 
 }
 
 header.nav ul {
 
     float: right;
+    list-style: none;
+
+    li {
+
+        display: inline-block;
+
+    }
 
 }
