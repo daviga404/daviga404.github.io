@@ -22,11 +22,13 @@
 
 ###
 
+# App object to provide settings
+# and actions for data-action links
 App = {
 
     settings: {
 
-        # Speed of animations in milliseconds
+        # Speed of animations in milliseconds (or jQuery string)
         animSpeed: 500
 
     }
@@ -37,13 +39,19 @@ App = {
         # section of page indicated by
         # object's href (in format of #id)
         jumpTo: (elem) ->
-            target = $ elem.href
+            target = $ elem.getAttribute 'href'
+
+            if target.length != 1
+                return
+
             $('html, body').animate {
                 scrollTop: target.offset().top
             }, App.settings.animSpeed
 
         jumpToTop: (elem) ->
-
+            $('html, body').animate {
+                scrollTop: 0
+            }, App.settings.animSpeed
 
     }
 
@@ -52,7 +60,11 @@ App = {
 # Bind actions to elements with the data
 # attribute data-action if there is an
 # action defined for it.
-$(document).delegate '[data-action]', 'click', (e) ->
+$(document).delegate 'a[data-action]', 'click', (event) ->
+
     action = $(this).data 'action'
-    if action in App.actions
+
+    # Check whether action exists
+    if App.actions.hasOwnProperty action
+        event.preventDefault()
         App.actions[action] this
