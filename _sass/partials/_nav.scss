@@ -6,9 +6,9 @@ header.nav {
     position: absolute;
     top: 0; left: 0; right: 0;
 
-    height: $headerHeight;
-    line-height: $headerHeight - $headerPadding * 2;
-    padding: $headerPadding;
+    height: $header-height;
+    line-height: $header-height - $header-padding * 2;
+    padding: $header-padding;
 
 }
 
@@ -18,8 +18,8 @@ header.nav .logo img {
     @include box-sizing(content-box);
 
     width: auto;
-    height: $logoHeight;
-    padding: (($headerHeight - $headerPadding * 2 - $logoHeight) / 2); // Remaining space in header / 2
+    height: $logo-height;
+    padding: (($header-height - $header-padding * 2 - $logo-height) / 2); // Remaining space in header / 2
 
 }
 
