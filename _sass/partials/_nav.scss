@@ -1,3 +1,4 @@
+// Nav Bar
 header.nav {
 
     @include box-sizing(border-box);
@@ -9,11 +10,9 @@ header.nav {
     line-height: $headerHeight - $headerPadding * 2;
     padding: $headerPadding;
 
-    //!!!
-    background: #333;
-
 }
 
+// Logo
 header.nav .logo img {
 
     @include box-sizing(content-box);
@@ -24,14 +23,32 @@ header.nav .logo img {
 
 }
 
+// Navigation Menu
 header.nav ul {
 
     float: right;
     list-style: none;
 
-    li {
+    margin: 0;
+    padding: 0;
 
-        display: inline-block;
+    li { display: inline-block; }
+    li a {
+
+        @include transition(color 0.3s ease-in-out);
+
+        text-decoration: none;
+        color: $grey;
+
+        font-family: $lato;
+        font-weight: lighter;
+        font-size: 16px;
+        text-transform: uppercase;
+
+        margin: 0 10px;
+        padding: 10px;
+
+        &:hover { color: $white; }
 
     }
 
