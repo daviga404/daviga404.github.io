@@ -74,8 +74,6 @@ header.nav .nav-collapse-button {
 
     span.bar {
 
-        @include transition(transform 0.3s ease-in-out);
-
         display: block;
         width: 16px;
         height: 2px;
@@ -86,16 +84,7 @@ header.nav .nav-collapse-button {
         margin-bottom: 4px;
 
         &:last-child { margin-bottom: 0; }
-        &.bar__1     { @include transform-origin(2px 1px); }
-        &.bar__2     { @include transform-origin(center); }
-        &.bar__3     { @include transform-origin(14px 1px); }
 
     }
-
-}
-
-.nav-list.expanded span.bar {
-
-    @include transform(rotate(90deg));
 
 }
