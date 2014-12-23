@@ -1,0 +1,48 @@
+@for $i from 1 through 4 {
+
+    @include keyframes(rotatingText#{$i}) {
+
+        // 0deg (at i = 0)
+        0% {
+            @include transform(perspective(100px) rotateX(-90deg * ($i - 1)));
+        }
+
+        20% {
+            @include transform(perspective(100px) rotateX(-90deg * ($i - 1)));            
+        }
+
+        // -90 (at i = 0)
+        25% {
+            @include transform(perspective(100px) rotateX(-90deg * ($i)));
+        }
+
+        45% { 
+            @include transform(perspective(100px) rotateX(-90deg * ($i)));
+        }
+
+        // -180 (at i = 0)
+        50% {
+            @include transform(perspective(100px) rotateX(-90deg * ($i + 1)));
+        }
+
+        70% {
+            @include transform(perspective(100px) rotateX(-90deg * ($i + 1)));
+        }
+
+        // -270 (at i = 0)
+        75% {
+            @include transform(perspective(100px) rotateX(-90deg * ($i + 2)));
+        }
+
+        95% {
+            @include transform(perspective(100px) rotateX(-90deg * ($i + 2)));
+        }
+
+        // Back to default
+        100% {
+            @include transform(perspective(100px) rotateX(-90deg * ($i + 3)));
+        }
+
+    }
+
+}
