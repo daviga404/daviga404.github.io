@@ -38,8 +38,8 @@ App = {
         # Performs scroll animation to
         # section of page indicated by
         # object's href (in format of #id)
-        jumpTo: (elem) ->
-            target = $ elem.getAttribute 'href'
+        jumpTo: (elem, target) ->
+            target = $ target
 
             if target.length != 1
                 return
@@ -55,6 +55,8 @@ App = {
                 scrollTop: 0
             }, App.settings.animSpeed
 
+        # Toggles a class `clazz` on element
+        # `target`.
         toggleClass: (elem, target, clazz) ->
             $target = $ target
 
