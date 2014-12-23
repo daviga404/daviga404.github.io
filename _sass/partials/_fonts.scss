@@ -1,5 +1,5 @@
 // Lato Font
 @include font-face(Lato, '../assets/fonts/Lato/Lato-Regular');
-@include font-face(Lato, '../assets/fonts/Lato/Lato-Bold', bold);
-@include font-face(Lato, '../assets/fonts/Lato/Lato-Light', lighter);
-@include font-face(Lato, '../assets/fonts/Lato/Lato-Italic', normal, italic);
+@include font-face(Lato, '../assets/fonts/Lato/Lato-Bold', 700);
+@include font-face(Lato, '../assets/fonts/Lato/Lato-Light', 300);
+@include font-face(Lato, '../assets/fonts/Lato/Lato-Italic', 400, italic);
