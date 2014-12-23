@@ -14,6 +14,9 @@ div.view {
     background: url(../assets/images/unsplash-desk.jpg) center center;
     background-size: cover;
 
+    // Centered part of view with h1
+    // as title and span containing the
+    // rotating text
     .centered {
 
         text-align: center;
@@ -26,11 +29,15 @@ div.view {
 
         span {
             font-size: 1.5em;
+            font-weight: 300;
         }
 
     }
 
-    .rotatingText {
+    // Text that rotates on a 3d axis on
+    // CSS animation (defined in partials/anims)
+    // List of different text
+    ul.rotatingText {
 
         list-style: none;
         display: inline-block;
