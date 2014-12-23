@@ -17,9 +17,20 @@ header.nav .logo img {
 
     @include box-sizing(content-box);
 
+    border: none;
+    outline: none; // Disable outline on IE9+
+
     width: auto;
     height: $logo-height;
     padding: (($header-height - $header-padding * 2 - $logo-height) / 2); // Remaining space in header / 2
+
+}
+
+// Container of Menu
+header.nav .nav-list {
+
+    display: inline-block;
+    float: right;
 
 }
 
@@ -51,5 +62,40 @@ header.nav ul {
         &:hover { color: $white; }
 
     }
+
+}
+
+// Collapse Button
+header.nav .nav-collapse-button {
+
+    //display: inline-block; <-- Hidden when on desktop
+    display: none;
+    padding: 10px;
+
+    span.bar {
+
+        @include transition(transform 0.3s ease-in-out);
+
+        display: block;
+        width: 16px;
+        height: 2px;
+
+        border-radius: 3px;
+        background: $white;
+
+        margin-bottom: 4px;
+
+        &:last-child { margin-bottom: 0; }
+        &.bar__1     { @include transform-origin(2px 1px); }
+        &.bar__2     { @include transform-origin(center); }
+        &.bar__3     { @include transform-origin(14px 1px); }
+
+    }
+
+}
+
+.nav-list.expanded span.bar {
+
+    @include transform(rotate(90deg));
 
 }

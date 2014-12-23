@@ -16,3 +16,4 @@
 @import "partials/body";
 @import "partials/nav";
 @import "partials/views";
+@import "partials/responsive"; // Import last so rules take precedence

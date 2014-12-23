@@ -9,12 +9,19 @@ title: David Baxter
         <img src="/assets/images/logo.svg" alt="DB Logo" />
     </a>
 
-    <ul> <!-- <li>s must be on the same line to prevent spacing issues -->
-        <li><a href="/portfolio">Portfolio</a></li><li>
-            <a href="/blog">Blog</a></li><li>
-            <a href="#about" data-action="jumpTo">About</a></li><li>
-            <a href="#contact" data-action="jumpTo">Contact</a></li>
-    </ul>
+    <div class="nav-list">
+        <a href="#" class="nav-collapse-button" data-action="toggleClass(.nav-list, .expanded)">
+            <span class="bar bar__1"></span>
+            <span class="bar bar__2"></span>
+            <span class="bar bar__3"></span>
+        </a>
+        <ul id="nav-collapse"> <!-- <li>s must be on the same line to prevent spacing issues -->
+            <li><a href="/portfolio">Portfolio</a></li><li>
+                <a href="/blog">Blog</a></li><li>
+                <a href="#about" data-action="jumpTo(#about)">About</a></li><li>
+                <a href="#contact" data-action="jumpTo(#contact)">Contact</a></li>
+        </ul>
+    </div><!-- TODO: <bars in nav icon>, nav collapse styles, data-action parameters -->
 
 </header>
 
@@ -28,9 +35,9 @@ title: David Baxter
                 <li class="green">freelance web developer</li>
                 <li class="salmon">coffee drinker</li>
                 <li class="blue">hobbyist programmer</li>
-                <li class="grey" style="color:#ffae00;">meticulous pixel pusher</li>
+                <li class="orange">meticulous pixel pusher</li>
             </ul>
         </span>
-    </div class="centered">
+    </div>
 
 </div>

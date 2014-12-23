@@ -1,0 +1,61 @@
+@media screen and (max-width: 768px) {
+    
+    // Nav Bar Collapse
+    header.nav {
+
+        .nav-collapse-button {
+
+            display: inline-block;
+
+        }
+
+        ul {
+            
+            @include transition(all 0.5s ease-in-out);
+            @include transform(perspective(800px) rotateX(-90deg));
+            @include transform-origin(top);
+
+            //display: none;
+        
+            position: absolute;
+            right: 0;
+
+        }
+
+        ul li {
+
+            display: block;
+
+            a {
+                
+                display: block;
+                text-align: center;
+
+                background: rgba(0, 0, 0, 0.6);
+                color: $white;
+
+                padding: 10px 20px;
+
+                &:active { background: $black; }
+
+            }
+
+        }
+
+    }
+
+    // Styles for when the list is 
+    // expanded in the nav
+    header.nav .nav-list.expanded {
+
+        ul {
+
+            @include transform(perspective(800px) rotateX(0deg));
+
+            display: block;
+
+        }
+
+    }
+
+}

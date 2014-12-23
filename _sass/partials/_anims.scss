@@ -1,3 +1,7 @@
+// Rotating text animations:
+// text rotates every 2 seconds for 0.5 seconds per
+// rotation, by 90deg each time. i decides which angle
+// it starts at. Percentages based on 10s animation.
 @for $i from 1 through 4 {
 
     @include keyframes(rotatingText#{$i}) {
