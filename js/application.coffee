@@ -48,10 +48,40 @@ App = {
                 scrollTop: target.offset().top
             }, App.settings.animSpeed
 
+        # Performs scroll animation to
+        # the top of the page
         jumpToTop: (elem) ->
             $('html, body').animate {
                 scrollTop: 0
             }, App.settings.animSpeed
+
+        toggleClass: (elem, target, clazz) ->
+            $target = $ target
+
+            if $target.length < 1
+                return
+
+            $target.toggleClass clazz
+
+    }
+
+    utils: {
+
+        # Parses a function attribute (attribute
+        # in the form of func(args...)) to an
+        # array - [function name, arguments...]
+        parseFunctionAttr: (attr) ->
+            if attr.match /^[a-zA-Z0-9]+$/
+                [attr]
+            else if attr.match /^[a-zA-Z0-9]+\((?:\s*[^, ]+\s*,)*(?:\s*[^, ]+\s*)\)$/
+                funcName     = attr.substring 0, attr.indexOf('(')
+                funcBrackets = attr.substring attr.indexOf('(') + 1, attr.lastIndexOf(')')
+                funcArgs     = funcBrackets.split(',').map (v) -> v.trim()
+
+                if not funcName or not funcBrackets or not funcArgs or funcArgs.length == 0
+                    []
+                else
+                    [funcName].concat funcArgs
 
     }
 
@@ -63,8 +93,13 @@ App = {
 $(document).delegate 'a[data-action]', 'click', (event) ->
 
     action = $(this).data 'action'
+    func   = App.utils.parseFunctionAttr(action)
+
+    # Make sure attr was parsable
+    if func.length < 1
+        return
 
     # Check whether action exists
-    if App.actions.hasOwnProperty action
+    if App.actions.hasOwnProperty func[0]
         event.preventDefault()
-        App.actions[action] this
+        App.actions[func[0]] this, func.slice(1)... # Splat!
