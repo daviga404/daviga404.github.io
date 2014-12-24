@@ -10,6 +10,8 @@ header.nav {
     line-height: $header-height - $header-padding * 2;
     padding: $header-padding;
 
+    z-index: $z-index-nav;
+
 }
 
 // Logo

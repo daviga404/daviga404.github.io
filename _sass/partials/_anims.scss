@@ -50,3 +50,14 @@
     }
 
 }
+
+// "Float" animation:
+// Element bobs up and down using transform
+// to smoothly animate short distance
+@include keyframes(float) {
+
+    0% { @include transform(translateY(0px)); }
+    50% { @include transform(translateY(3px)); }
+    0% { @include transform(translateY(0px)); }
+
+}
