@@ -29,7 +29,10 @@ App = {
     settings: {
 
         # Speed of animations in milliseconds (or jQuery string)
-        animSpeed: 500
+        animSpeed: 700
+
+        # Easing function to use in animations
+        animEasing: 'easeInOutCubic'
 
     }
 
@@ -46,14 +49,20 @@ App = {
 
             $('html, body').animate {
                 scrollTop: target.offset().top
-            }, App.settings.animSpeed
+            }, {
+                duration: App.settings.animSpeed
+                easing:   App.settings.animEasing
+            }
 
         # Performs scroll animation to
         # the top of the page
         jumpToTop: (elem) ->
             $('html, body').animate {
                 scrollTop: 0
-            }, App.settings.animSpeed
+            }, {
+                duration: App.settings.animSpeed
+                easing:   App.settings.animEasing
+            }
 
         # Toggles a class `clazz` on element
         # `target`.
@@ -64,6 +73,31 @@ App = {
                 return
 
             $target.toggleClass clazz
+
+    }
+
+    effects: {
+
+        # Parallax scrolling effect!
+        parallax: (elem) ->
+            $elem = $ elem
+            $(window).scroll ->
+                elemTop    = $elem.offset().top
+                elemHeight = $elem.outerHeight()
+                scrollPos  = $(window).scrollTop()
+                speed      = 0.5
+
+                # Return if element is no longer in viewport
+                if scrollPos > elemTop + elemHeight
+                    return
+
+                # Don't bother with mobile...
+                if App.utils.isMobile()
+                    return
+
+                newPos = 50 + (Math.floor ((scrollPos * speed) / elemHeight) * 50)
+                $elem.css 'backgroundPosition', "50% #{newPos}%"
+                
 
     }
 
@@ -85,23 +119,41 @@ App = {
                 else
                     [funcName].concat funcArgs
 
+        # Calls a function in the App namespace from an
+        # element's attribute
+        # elem          - The element to bind the function to
+        # attributeName - Name of the data attribute (e.g. data-action = "action")
+        # functionType  - The type of function in App namespace (e.g. App.actions = "actions")
+        # callback      - A function to call if successful
+        bindFunctions: (elem, attributeName, functionType, callback) ->
+            funcAttr = ($(elem).data attributeName) || ''
+            func     = App.utils.parseFunctionAttr funcAttr
+
+            # Make sure attr was parsable
+            if not func or func.length < 1
+                return
+
+            # Check whether function exists
+            if App[functionType].hasOwnProperty func[0]
+                App[functionType][func[0]] elem, func.slice(1)... # Splat!
+                callback()
+
+        # Tests if user is on a mobile device
+        isMobile: ->
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test navigator.userAgent
+
     }
 
 }
+
 
 # Bind actions to elements with the data
 # attribute data-action if there is an
 # action defined for it.
 $(document).delegate 'a[data-action]', 'click', (event) ->
 
-    action = $(this).data 'action'
-    func   = App.utils.parseFunctionAttr(action)
+    App.utils.bindFunctions this, 'action', 'actions', -> event.preventDefault()
 
-    # Make sure attr was parsable
-    if func.length < 1
-        return
+$('*[data-effect]').each (i, v) ->
 
-    # Check whether action exists
-    if App.actions.hasOwnProperty func[0]
-        event.preventDefault()
-        App.actions[func[0]] this, func.slice(1)... # Splat!
+    App.utils.bindFunctions this, 'effect', 'effects', -> return

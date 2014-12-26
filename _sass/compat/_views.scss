@@ -1,16 +1,14 @@
-// Table on outer container
-// to allow for vertical centering
-section.main {
-    
+// No flexbox support in <= IE9
+// Tables instead... 
+.view.view__home {
+
     display: table;
     width: 100%;
 
-}
-
-.view.view__home {
-
-    display: table-cell;
-    vertical-align: middle;
+    .centered {
+        display: table-cell;
+        vertical-align: middle;
+    }
 
 }
 
