@@ -2,8 +2,10 @@ div.view {
 
     position: relative;
 
-    height: $max-view-height;
-    max-height: 100vh;
+    // Use padding because margin is
+    // not included when doing scrollTop
+    // animations
+    padding: $default-margin 0;
 
 }
 
@@ -15,6 +17,14 @@ div.view {
     
     background: url(../assets/images/unsplash-desk.jpg) center center;
     background-size: cover;
+
+    // Make this screen 800px, or, if
+    // screen is smaller, 100vh
+    height: $max-view-height;
+    max-height: 100vh;
+
+    // We don't want a margin on this one
+    margin: 0;
 
     // Centered part of view with h1
     // as title and span containing the
@@ -29,9 +39,14 @@ div.view {
             text-transform: uppercase;
         }
 
-        span {
+        .description {
             font-size: 1.5em;
             font-weight: 300;
+        }
+
+        span {
+            display: inline-block;
+            float: left;
         }
 
     }
@@ -45,29 +60,31 @@ div.view {
         display: inline-block;
 
         position: relative;
-        top: 5px;
-        width: 250px;
-        height: 26px;
+        height: 1em;
+        float: left;
 
-        overflow: hidden;
+        overflow: visible;
         white-space: nowrap;
 
         margin: 0;
         padding: 0;
 
-
         li {
 
-            @include transform-origin(bottom);
+            @include transform-origin(50% 1em);
+            @include backface-visibility(hidden);
 
-            position: absolute;
-            top: 0;
+            // Quick CSS hack to avoid using
+            // pos: abs
+            height: 0;
+            overflow: visible;
+
+            text-align: left;
 
             @for $i from 1 through 4 {
                 &:nth-child(#{$i}) {
                  
                     @include animation(rotatingText#{$i} 10s ease-in-out infinite);
-                    @include backface-visibility(visible);
                     
                 }
             }
@@ -107,6 +124,176 @@ div.view {
             position: relative;
 
             top: 5px;
+
+        }
+
+    }
+
+}
+
+.view.view__work {
+
+    // Portfolio Title
+    h1 {
+
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 23px;
+
+        color: $black;
+
+    }
+
+    // Lines around the title
+    // (left and right)
+    h1 span::before,
+    h1 span::after {
+
+        display: inline-block;
+        content: '';
+
+        width: 1.5em;
+        height: 2px;
+        margin: 0.3em 0.5em;
+
+        background: $grey;
+
+    }
+
+    // Collection of thumbnails and respective
+    // breakpoints - they get smaller on different
+    // screen sizes.
+    .thumbnails {
+
+        @include break-at($screen-large)  { width: 800px; }
+        @include break-at($screen-medium) { width: 600px; }
+        @include break-at($screen-small)  { width: 500px; }
+        @include break-at($screen-phone)  { width: 80%; }
+
+        width: 1000px;
+        margin: $default-margin auto;
+        overflow: hidden; // Clear Fix
+
+    }
+
+    .thumbnail {
+
+        // Ratio is 0.6 because normal width is 30%
+        // of 1000px = 300px, normal height is 180px,
+        // and 180 / 300 = 0.6
+        // 0.18 is obtained from 0.3 (30%) * 0.6 (the ratio)
+        @include break-at($screen-large) { height: 0.18 * 800px; }
+        @include break-at($screen-medium) { height: 0.18 * 600px; }
+        @include break-at($screen-small) { height: 0.18 * 500px; }
+
+        // At 480px (mobile-ish size), make thumbnails
+        // take up whole screen width
+        @include break-at($screen-phone) {
+            width: 100%;
+            height: 180px;
+            margin-right: 0;
+            margin-bottom: 15%!important;            
+        }
+
+        position: relative;
+    
+        width: 30%;
+        height: 180px;
+
+        margin-right: 5%;
+        margin-bottom: 5%;
+        float: left;
+        overflow: hidden; // Hide to conceal image scale
+
+        background: #CCC;
+
+        // Every third thumbnail (in a 3x2 grid)
+        // needs no right margin, and every one in
+        // second row (n + 3) needs no bottom margin
+        &:nth-child(3n) { margin-right: 0; }
+        &:nth-child(n+3){ margin-bottom: 0; }
+
+        // Make img width fill thumbnail
+        img { width: 100%; }
+
+    }
+
+    .thumbnail .info {
+
+        @include transition(all 0.5s ease);
+
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+
+        z-index: 2;
+
+        //background: rgba(0, 0, 0, 0.4);
+        visibility: hidden;
+
+        h3 {
+
+            @include transition(all 0.5s ease);
+            @include transform(translate3d(0, 100%, 0));
+    
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            color: $white;
+            font-size: 20px;
+
+            opacity: 0;
+
+        }
+
+    }
+
+    // Pseudo-element which is behind the text in .info
+    // - gradient background which slides up with CSS
+    // transform. Not possible without pseudo elements
+    .thumbnail .info::before {
+
+        @include linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 75%);
+        @include transform(translate3d(0, 50%, 0));
+        @include transition(all 0.5s ease);
+
+        content: '';
+        display: block;
+
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+
+        opacity: 0;
+
+    }
+
+    .thumbnail img {
+
+        @include transition(all 0.5s ease);
+
+    }
+
+    .thumbnail:hover {
+
+        //img   { @include transform(scale(1.2)); }
+        .info { 
+
+            visibility: visible;
+
+        }
+
+        .info::before {
+
+            @include transform(translate3d(0, 0, 0));
+            opacity: 1;
+
+        }
+
+        .info h3 {
+
+            @include transform(translateY(0px));
+            opacity: 1;
 
         }
 

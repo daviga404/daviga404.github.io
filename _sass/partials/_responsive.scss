@@ -1,4 +1,4 @@
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $screen-small) {
     
     // Nav Bar Collapse
     header.nav {
@@ -55,6 +55,15 @@
             display: block;
 
         }
+
+    }
+
+    // Correct font sizing to be smaller
+    // for the main section of the home
+    // view
+    .view.view__home .centered {
+
+        font-size: 0.8em;
 
     }
 
